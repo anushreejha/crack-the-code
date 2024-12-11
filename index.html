@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sapna To Sachai - Interactive Data Structures</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/three@0.134.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Sapna To Sachai</h1>
+            <ul>
+                <li><a href="#learn">Learn</a>
+                    <ul class="submenu">
+                        <li><a href="#arrays">Arrays</a></li>
+                        <li><a href="#linked-lists">Linked Lists</a></li>
+                        <li><a href="#stacks">Stacks</a></li>
+                        <li><a href="#queues">Queues</a></li>
+                        <li><a href="#trees">Trees</a></li>
+                        <li><a href="#graphs">Graphs</a></li>
+                        <li><a href="#heaps">Heaps</a></li>
+                        <li><a href="#hashing">Hash Tables</a></li>
+                    </ul>
+                </li>
+                <li><a href="#practice">Practice</a></li>
+                <li><a href="#compete">Compete</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="arrays" class="ds-section">
+            <h2>Arrays</h2>
+            <div class="content-wrapper">
+                <div class="theory">
+                    <h3>What are Arrays?</h3>
+                    <p>Arrays are linear data structures that store elements in contiguous memory locations.</p>
+                    <h3>Key Operations:</h3>
+                    <ul>
+                        <li>Insertion: O(n)</li>
+                        <li>Deletion: O(n)</li>
+                        <li>Access: O(1)</li>
+                        <li>Search: O(n)</li>
+                    </ul>
+                </div>
+                <div class="visualization" id="array-viz">
+                    <div class="viz-controls">
+                        <button class="viz-button" data-viz="array" data-action="insert">Insert</button>
+                        <button class="viz-button" data-viz="array" data-action="delete">Delete</button>
+                        <button class="viz-button" data-viz="array" data-action="search">Search</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="linked-lists" class="ds-section">
+            <h2>Linked Lists</h2>
+            <div class="content-wrapper">
+                <div class="theory">
+                    <h3>What are Linked Lists?</h3>
+                    <p>Linked Lists are sequential data structures where elements are connected through references.</p>
+                    <h3>Key Operations:</h3>
+                    <ul>
+                        <li>Insertion: O(1)</li>
+                        <li>Deletion: O(1)</li>
+                        <li>Access: O(n)</li>
+                        <li>Search: O(n)</li>
+                    </ul>
+                </div>
+                <div class="visualization" id="linkedlist-viz">
+                    <div class="viz-controls">
+                        <button class="viz-button" data-viz="linkedlist" data-action="insert">Insert</button>
+                        <button class="viz-button" data-viz="linkedlist" data-action="delete">Delete</button>
+                        <button class="viz-button" data-viz="linkedlist" data-action="search">Search</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="stacks" class="ds-section">
+            <h2>Stacks</h2>
+            <div class="content-wrapper">
+                <div class="theory">
+                    <h3>What are Stacks?</h3>
+                    <p>Stacks are linear data structures that follow the Last-In-First-Out (LIFO) principle. Think of it like a stack of plates - you can only add or remove plates from the top.</p>
+                    <h3>Key Operations:</h3>
+                    <ul>
+                        <li>Push (Insert): O(1)</li>
+                        <li>Pop (Remove): O(1)</li>
+                        <li>Peek (Top): O(1)</li>
+                        <li>IsEmpty: O(1)</li>
+                    </ul>
+                </div>
+                <div class="visualization" id="stack-viz">
+                    <div class="viz-controls">
+                        <button class="viz-button" data-viz="stack" data-action="push">Push</button>
+                        <button class="viz-button" data-viz="stack" data-action="pop">Pop</button>
+                        <button class="viz-button" data-viz="stack" data-action="peek">Peek</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="queues" class="ds-section">
+            <h2>Queues</h2>
+            <div class="content-wrapper">
+                <div class="theory">
+                    <h3>What are Queues?</h3>
+                    <p>Queues are linear data structures that follow the First-In-First-Out (FIFO) principle. Think of it like a line of people waiting - the first person to join the line is the first to leave.</p>
+                    <h3>Key Operations:</h3>
+                    <ul>
+                        <li>Enqueue (Insert): O(1)</li>
+                        <li>Dequeue (Remove): O(1)</li>
+                        <li>Front: O(1)</li>
+                        <li>IsEmpty: O(1)</li>
+                    </ul>
+                </div>
+                <div class="visualization" id="queue-viz">
+                    <div class="viz-controls">
+                        <button class="viz-button" data-viz="queue" data-action="enqueue">Enqueue</button>
+                        <button class="viz-button" data-viz="queue" data-action="dequeue">Dequeue</button>
+                        <button class="viz-button" data-viz="queue" data-action="front">Front</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="trees" class="ds-section">
+            <h2>Trees</h2>
+            <div class="content-wrapper">
+                <div class="theory">
+                    <h3>What are Trees?</h3>
+                    <p>Trees are hierarchical data structures with a root node and child nodes connected by edges. Binary trees, AVL trees, and Red-Black trees are common variants.</p>
+                    <h3>Key Operations:</h3>
+                    <ul>
+                        <li>Insertion: O(log n) for balanced trees</li>
+                        <li>Deletion: O(log n) for balanced trees</li>
+                        <li>Search: O(log n) for balanced trees</li>
+                        <li>Traversal: O(n)</li>
+                    </ul>
+                </div>
+                <div class="visualization" id="tree-viz">
+                    <div class="viz-controls">
+                        <button class="viz-button" data-viz="tree" data-action="insert">Insert</button>
+                        <button class="viz-button" data-viz="tree" data-action="delete">Delete</button>
+                        <button class="viz-button" data-viz="tree" data-action="traverse">Traverse</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="graphs" class="ds-section">
+            <h2>Graphs</h2>
+            <div class="content-wrapper">
+                <div class="theory">
+                    <h3>What are Graphs?</h3>
+                    <p>Graphs are non-linear data structures consisting of vertices (nodes) and edges connecting these vertices. They can be directed or undirected, weighted or unweighted.</p>
+                    <h3>Key Operations:</h3>
+                    <ul>
+                        <li>Add Vertex: O(1)</li>
+                        <li>Add Edge: O(1)</li>
+                        <li>DFS Traversal: O(V + E)</li>
+                        <li>BFS Traversal: O(V + E)</li>
+                    </ul>
+                </div>
+                <div class="visualization" id="graph-viz">
+                    <div class="viz-controls">
+                        <button class="viz-button" data-viz="graph" data-action="addVertex">Add Vertex</button>
+                        <button class="viz-button" data-viz="graph" data-action="addEdge">Add Edge</button>
+                        <button class="viz-button" data-viz="graph" data-action="dfs">DFS</button>
+                        <button class="viz-button" data-viz="graph" data-action="bfs">BFS</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="heaps" class="ds-section">
+            <h2>Heaps</h2>
+            <div class="content-wrapper">
+                <div class="theory">
+                    <h3>What are Heaps?</h3>
+                    <p>Heaps are specialized tree-based data structures that satisfy the heap property. In a max heap, parent nodes are always greater than child nodes, while in a min heap, parent nodes are always smaller than child nodes.</p>
+                    <h3>Key Operations:</h3>
+                    <ul>
+                        <li>Insertion: O(log n)</li>
+                        <li>Delete Max/Min: O(log n)</li>
+                        <li>Get Max/Min: O(1)</li>
+                        <li>Heapify: O(n)</li>
+                    </ul>
+                </div>
+                <div class="visualization" id="heap-viz">
+                    <div class="viz-controls">
+                        <button class="viz-button" data-viz="heap" data-action="heapify">Heapify</button>
+                        <button class="viz-button" data-viz="heap" data-action="insert">Insert</button>
+                        <button class="viz-button" data-viz="heap" data-action="extract">Extract Max</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="hashing" class="ds-section">
+            <h2>Hash Tables</h2>
+            <div class="content-wrapper">
+                <div class="theory">
+                    <h3>What are Hash Tables?</h3>
+                    <p>Hash tables are data structures that implement an associative array abstract data type, mapping keys to values using a hash function to compute an index into an array of buckets.</p>
+                    <h3>Key Operations:</h3>
+                    <ul>
+                        <li>Insertion: O(1) average</li>
+                        <li>Deletion: O(1) average</li>
+                        <li>Search: O(1) average</li>
+                        <li>Worst case: O(n) with collisions</li>
+                    </ul>
+                </div>
+                <div class="visualization" id="hash-viz">
+                    <div class="viz-controls">
+                        <button class="viz-button" data-viz="hash" data-action="insert">Insert</button>
+                        <button class="viz-button" data-viz="hash" data-action="search">Search</button>
+                        <button class="viz-button" data-viz="hash" data-action="delete">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Sapna To Sachai. All rights reserved.</p>
+    </footer>
+
+    <script src="visualizations.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
