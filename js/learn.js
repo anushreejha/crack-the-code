@@ -1524,7 +1524,7 @@ class TrieAnimation extends DataStructureAnimation {
 
         const drawNode = (node, x, y, word) => {
             ctx.fillStyle = 'black';
-            ctx.fillText(word, x, y);
+            ctx.fillText(word, x, y + 15);
             const children = Object.keys(node.children);
             const childX = x - (children.length - 1) * spacing / 2;
 
@@ -1532,7 +1532,7 @@ class TrieAnimation extends DataStructureAnimation {
                 const childNode = node.children[char];
                 const childWord = word + char;
                 ctx.beginPath();
-                ctx.moveTo(x, y + 5);
+                ctx.moveTo(x, y + 20);
                 ctx.lineTo(childX + index * spacing, y + spacing);
                 ctx.stroke();
 
