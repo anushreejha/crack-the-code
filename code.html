@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Compiler</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/code.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/python/python.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="logo">Crack The Code</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="learn.html">Learn</a>
+                <a href="code.html">Code</a>
+                <a href="discuss.html">Discuss</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="questions">
+            <div class="nav-arrows">
+                <button class="arrow" id="prev-question">&lt;</button>
+                <button class="arrow" id="next-question">&gt;</button>
+            </div>
+            <h2 id="problem-title">Problem 1: Reverse a String</h2>
+            <p id="problem-description">Given a string, return it reversed.</p>
+            <h3>Examples:</h3>
+            <ul id="examples-list">
+                <li>Input: "hello" → Output: "olleh"</li>
+                <li>Input: "world" → Output: "dlrow"</li>
+            </ul>
+            <h3>Constraints:</h3>
+            <p id="problem-constraints">The input string will have at most 1000 characters.</p>
+            <h3>References:</h3>
+            <p><a href="https://example.com/problem1">Problem 1 Reference</a></p>
+        </div>
+
+        <div class="editor">
+            <h2>Code Editor</h2>
+            <select id="language-select">
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+            </select>
+            <textarea id="code" name="code"></textarea>
+            <div class="button-container">
+                <button class="button" id="compile-button">Compile</button>
+                <button class="button" id="test-button">Run Test Cases</button>
+            </div>
+            <pre id="output"></pre>
+        </div>
+    </div>
+
+    <script src="scripts/code.js"></script>
+    <script>
+        // Initialize CodeMirror
+        const codeMirror = CodeMirror.fromTextArea(document.getElementById("code"), {
+            lineNumbers: true,
+            mode: "javascript",
+            theme: "default"
+        });
+
+        // Change mode based on selected language
+        document.getElementById("language-select").addEventListener("change", function() {
+            const mode = this.value;
+            codeMirror.setOption("mode", mode);
+        });
+    </script>
+</body>
+</html>
