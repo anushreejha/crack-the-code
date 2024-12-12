@@ -3,10 +3,10 @@ const heroSection = document.querySelector('.hero');
 let gradientPosition = 0;
 
 function updateGradient() {
-    gradientPosition += 0.9; // gradient speed
+    gradientPosition += 0.9; // Gradient speed
     heroSection.style.background = `linear-gradient(${gradientPosition}deg, #ff007f, #8000ff)`;
     requestAnimationFrame(updateGradient);
 }
 
-// start gradient
+// Start gradient
 updateGradient();
