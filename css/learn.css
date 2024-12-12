@@ -1,0 +1,103 @@
+body {
+    background-color: #f5f6fa;
+    color: #2c3e50;
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+}
+
+.learn-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #8A2BE2;
+}
+
+.ds-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.ds-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.ds-card h2 {
+    color: #8A2BE2;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.ds-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ds-theory, .ds-visualization, .ds-implementation {
+    background: #E6E6FA;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.ds-theory h3, .ds-visualization h3, .ds-implementation h3 {
+    color: #8A2BE2;
+    margin-bottom: 10px;
+}
+
+.ds-theory p, .ds-theory ul {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.ds-theory ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.ds-visualization {
+    position: relative;
+}
+
+.visualization-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.viz-btn {
+    padding: 10px 20px;
+    background-color: #FF69B4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.viz-btn:hover {
+    background-color: #8A2BE2;
+}
+
+pre {
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    color: #2c3e50;
+} 

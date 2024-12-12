@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn DSA - Sapna to Code</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/learn.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="logo">Sapna to Code</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="learn.html">Learn</a>
+                <a href="code.html">Code</a>
+                <a href="discuss.html">Discuss</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="learn-container">
+        <h1 class="page-title">Data Structures and Algorithms</h1>
+        
+        <section class="ds-grid">
+            <!-- Array Section -->
+            <article class="ds-card">
+                <h2>Arrays</h2>
+                <div class="ds-content">
+                    <section class="ds-theory">
+                        <h3>What is an Array?</h3>
+                        <p>An array is a collection of elements stored at contiguous memory locations. It's the simplest data structure where each element can be accessed directly.</p>
+                        
+                        <h3>When to Use?</h3>
+                        <ul>
+                            <li>When you need quick access to elements using indices</li>
+                            <li>When data is naturally tabular</li>
+                            <li>When you need constant-time access to elements</li>
+                        </ul>
+
+                        <h3>Real-life Applications</h3>
+                        <ul>
+                            <li>Contact lists in phones</li>
+                            <li>Image pixel storage</li>
+                            <li>Spreadsheet applications</li>
+                        </ul>
+                    </section>
+
+                    <section class="ds-visualization">
+                        <h3>Visualization</h3>
+                        <div class="canvas-container">
+                            <canvas id="array-viz"></canvas>
+                        </div>
+                        <div class="visualization-controls">
+                            <button class="viz-btn" data-operation="insert">Insert</button>
+                            <button class="viz-btn" data-operation="delete">Delete</button>
+                            <button class="viz-btn" data-operation="search">Search</button>
+                        </div>
+                    </section>
+
+                    <section class="ds-implementation">
+                        <h3>Implementation</h3>
+                        <pre><code>
+Algorithm: Array Operations
+
+1. Initialize Array:
+   array = empty array of size n
+
+2. Insert(element):
+   if array is not full:
+      add element to end of array
+      increment size
+   else:
+      return overflow error
+
+3. Delete(index):
+   if index is valid:
+      shift elements after index left
+      decrement size
+   else:
+      return invalid index error
+
+4. Search(element):
+   for i from 0 to size-1:
+      if array[i] equals element:
+         return i
+   return not found</code></pre>
+                    </section>
+                </div>
+            </article>
+
+            <!-- Stack Section -->
+            <article class="ds-card">
+                <h2>Stack</h2>
+                <div class="ds-content">
+                    <section class="ds-theory">
+                        <h3>What is a Stack?</h3>
+                        <p>A stack is a linear data structure that follows the Last-In-First-Out (LIFO) principle. Think of it like a stack of plates.</p>
+                        
+                        <h3>When to Use?</h3>
+                        <ul>
+                            <li>Function call management (Call Stack)</li>
+                            <li>Undo operations in text editors</li>
+                            <li>Expression evaluation</li>
+                        </ul>
+
+                        <h3>Real-life Applications</h3>
+                        <ul>
+                            <li>Browser history</li>
+                            <li>Text editor undo feature</li>
+                            <li>Recursive function calls</li>
+                        </ul>
+                    </section>
+
+                    <section class="ds-visualization">
+                        <h3>Visualization</h3>
+                        <div class="canvas-container">
+                            <canvas id="stack-viz"></canvas>
+                        </div>
+                        <div class="visualization-controls">
+                            <button class="viz-btn" data-operation="push">Push</button>
+                            <button class="viz-btn" data-operation="pop">Pop</button>
+                            <button class="viz-btn" data-operation="peek">Peek</button>
+                        </div>
+                    </section>
+
+                    <section class="ds-implementation">
+                        <h3>Implementation</h3>
+                        <pre><code>
+Algorithm: Stack Operations
+
+1. Initialize Stack:
+   stack = empty stack
+   top = -1
+
+2. Push(element):
+   if stack is not full:
+      increment top
+      stack[top] = element
+   else:
+      return overflow error
+
+3. Pop():
+   if stack is not empty:
+      element = stack[top]
+      decrement top
+      return element
+   else:
+      return underflow error
+
+4. Peek():
+   if stack is not empty:
+      return stack[top]
+   else:
+      return empty error</code></pre>
+                    </section>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script src="js/visualizations.js"></script>
+    <script src="js/learn.js"></script>
+</body>
+</html> 
