@@ -854,6 +854,524 @@ class BSTAnimation extends DataStructureAnimation {
     }
 }
 
+class HeapAnimation extends DataStructureAnimation {
+    constructor(canvasId) {
+        super(canvasId);
+        this.heap = [];
+        this.setupAnimations();
+    }
+
+    setupAnimations() {
+        const insertSteps = [
+            {
+                draw: (ctx) => {
+                    this.heap = [50, 30, 40, 10, 20];
+                    this.drawHeap(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Initial Max Heap", this.canvas.width/2, 30);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.insertHeap(60);
+                    this.drawHeap(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Inserting 60 - Heapify Up", this.canvas.width/2, 30);
+                }
+            }
+        ];
+
+        const deleteSteps = [
+            {
+                draw: (ctx) => {
+                    this.heap = [50, 30, 40, 10, 20];
+                    this.drawHeap(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Initial Max Heap", this.canvas.width/2, 30);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.deleteRoot();
+                    this.drawHeap(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Deleting Root - Heapify Down", this.canvas.width/2, 30);
+                }
+            }
+        ];
+
+        this.animations = {
+            'insert': insertSteps,
+            'delete': deleteSteps
+        };
+    }
+
+    insertHeap(value) {
+        this.heap.push(value);
+        this.heapifyUp(this.heap.length - 1);
+    }
+
+    deleteRoot() {
+        if (this.heap.length === 0) return;
+        const last = this.heap.pop();
+        if (this.heap.length > 0) {
+            this.heap[0] = last;
+            this.heapifyDown(0);
+        }
+    }
+
+    heapifyUp(index) {
+        while (index > 0) {
+            const parentIndex = Math.floor((index - 1) / 2);
+            if (this.heap[index] > this.heap[parentIndex]) {
+                [this.heap[index], this.heap[parentIndex]] = [this.heap[parentIndex], this.heap[index]];
+                index = parentIndex;
+            } else {
+                break;
+            }
+        }
+    }
+
+    heapifyDown(index) {
+        const lastIndex = this.heap.length - 1;
+        while (true) {
+            const leftChild = 2 * index + 1;
+            const rightChild = 2 * index + 2;
+            let largest = index;
+
+            if (leftChild <= lastIndex && this.heap[leftChild] > this.heap[largest]) {
+                largest = leftChild;
+            }
+            if (rightChild <= lastIndex && this.heap[rightChild] > this.heap[largest]) {
+                largest = rightChild;
+            }
+
+            if (largest !== index) {
+                [this.heap[index], this.heap[largest]] = [this.heap[largest], this.heap[index]];
+                index = largest;
+            } else {
+                break;
+            }
+        }
+    }
+
+    drawHeap(ctx) {
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        const nodeRadius = 25;
+        const levels = Math.floor(Math.log2(this.heap.length)) + 1;
+
+        this.heap.forEach((value, index) => {
+            const level = Math.floor(Math.log2(index + 1));
+            const nodesInLevel = Math.pow(2, level);
+            const levelWidth = this.canvas.width;
+            const horizontalSpacing = levelWidth / (nodesInLevel + 1);
+            
+            const posInLevel = index + 1 - Math.pow(2, level);
+            const x = horizontalSpacing * (posInLevel + 1);
+            const y = 80 + level * 60;
+
+            // Draw node
+            ctx.beginPath();
+            ctx.arc(x, y, nodeRadius, 0, 2 * Math.PI);
+            ctx.fillStyle = '#8A2BE2';
+            ctx.fill();
+            ctx.strokeStyle = '#E6E6FA';
+            ctx.stroke();
+
+            // Draw value
+            ctx.fillStyle = 'white';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(value.toString(), x, y);
+
+            // Draw connections to children
+            const leftChildIndex = 2 * index + 1;
+            const rightChildIndex = 2 * index + 2;
+
+            ctx.strokeStyle = '#2c3e50';
+            if (leftChildIndex < this.heap.length) {
+                const leftLevel = Math.floor(Math.log2(leftChildIndex + 1));
+                const leftNodesInLevel = Math.pow(2, leftLevel);
+                const leftLevelWidth = this.canvas.width;
+                const leftHorizontalSpacing = leftLevelWidth / (leftNodesInLevel + 1);
+                
+                const leftPosInLevel = leftChildIndex + 1 - Math.pow(2, leftLevel);
+                const leftX = leftHorizontalSpacing * (leftPosInLevel + 1);
+                const leftY = 80 + leftLevel * 60;
+
+                ctx.beginPath();
+                ctx.moveTo(x, y + nodeRadius);
+                ctx.lineTo(leftX, leftY - nodeRadius);
+                ctx.stroke();
+            }
+
+            if (rightChildIndex < this.heap.length) {
+                const rightLevel = Math.floor(Math.log2(rightChildIndex + 1));
+                const rightNodesInLevel = Math.pow(2, rightLevel);
+                const rightLevelWidth = this.canvas.width;
+                const rightHorizontalSpacing = rightLevelWidth / (rightNodesInLevel + 1);
+                
+                const rightPosInLevel = rightChildIndex + 1 - Math.pow(2, rightLevel);
+                const rightX = rightHorizontalSpacing * (rightPosInLevel + 1);
+                const rightY = 80 + rightLevel * 60;
+
+                ctx.beginPath();
+                ctx.moveTo(x, y + nodeRadius);
+                ctx.lineTo(rightX, rightY - nodeRadius);
+                ctx.stroke();
+            }
+        });
+    }
+
+    playAnimation(type) {
+        this.animationSteps = this.animations[type] || [];
+        this.play();
+    }
+}
+
+class GraphAnimation extends DataStructureAnimation {
+    constructor(canvasId) {
+        super(canvasId);
+        this.nodes = [];
+        this.edges = [];
+        this.setupAnimations();
+    }
+
+    setupAnimations() {
+        const addNodeSteps = [
+            {
+                draw: (ctx) => {
+                    this.nodes = [
+                        { id: 1, x: this.canvas.width/3, y: this.canvas.height/2, value: 'A' },
+                        { id: 2, x: 2*this.canvas.width/3, y: this.canvas.height/2, value: 'B' }
+                    ];
+                    this.drawGraph(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Initial Graph", this.canvas.width/2, 30);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.addNode('C', this.canvas.width/2, this.canvas.height/3);
+                    this.drawGraph(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Adding Node C", this.canvas.width/2, 30);
+                }
+            }
+        ];
+
+        const addEdgeSteps = [
+            {
+                draw: (ctx) => {
+                    this.nodes = [
+                        { id: 1, x: this.canvas.width/3, y: this.canvas.height/2, value: 'A' },
+                        { id: 2, x: 2*this.canvas.width/3, y: this.canvas.height/2, value: 'B' },
+                        { id: 3, x: this.canvas.width/2, y: this.canvas.height/3, value: 'C' }
+                    ];
+                    this.drawGraph(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Initial Graph", this.canvas.width/2, 30);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.addEdge(1, 3);
+                    this.drawGraph(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Adding Edge A-C", this.canvas.width/2, 30);
+                }
+            }
+        ];
+
+        this.animations = {
+            'addnode': addNodeSteps,
+            'addedge': addEdgeSteps
+        };
+    }
+
+    addNode(value, x, y) {
+        const newId = this.nodes.length + 1;
+        this.nodes.push({ id: newId, x, y, value });
+    }
+
+    addEdge(sourceId, destId) {
+        this.edges.push({ source: sourceId, destination: destId });
+    }
+
+    drawGraph(ctx) {
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // Draw edges
+        this.edges.forEach(edge => {
+            const source = this.nodes.find(n => n.id === edge.source);
+            const dest = this.nodes.find(n => n.id === edge.destination);
+            
+            ctx.beginPath();
+            ctx.moveTo(source.x, source.y);
+            ctx.lineTo(dest.x, dest.y);
+            ctx.strokeStyle = '#2c3e50';
+            ctx.stroke();
+
+            // Arrowhead
+            const angle = Math.atan2(dest.y - source.y, dest.x - source.x);
+            ctx.beginPath();
+            ctx.moveTo(
+                dest.x - 10 * Math.cos(angle - Math.PI / 6), 
+                dest.y - 10 * Math.sin(angle - Math.PI / 6)
+            );
+            ctx.lineTo(dest.x, dest.y);
+            ctx.lineTo(
+                dest.x - 10 * Math.cos(angle + Math.PI / 6), 
+                dest.y - 10 * Math.sin(angle + Math.PI / 6)
+            );
+            ctx.strokeStyle = '#2c3e50';
+            ctx.stroke();
+        });
+
+        // Draw nodes
+        this.nodes.forEach(node => {
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, 25, 0, 2 * Math.PI);
+            ctx.fillStyle = '#8A2BE2';
+            ctx.fill();
+            ctx.strokeStyle = '#E6E6FA';
+            ctx.stroke();
+
+            ctx.fillStyle = 'white';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(node.value, node.x, node.y);
+        });
+    }
+
+    playAnimation(type) {
+        this.animationSteps = this.animations[type] || [];
+        this.play();
+    }
+}
+
+class HashTableAnimation extends DataStructureAnimation {
+    constructor(canvasId) {
+        super(canvasId);
+        this.hashTable = new Array(7).fill(null).map(() => []);
+        this.setupAnimations();
+    }
+
+    setupAnimations() {
+        const insertSteps = [
+            {
+                draw: (ctx) => {
+                    this.hashTable = new Array(5).fill(null).map(() => []);
+                    this.drawHashTable(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Empty Hash Table", this.canvas.width/2, 30);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.hashTable = new Array(5).fill(null).map(() => []);
+                    this.insert('John', 25);
+                    this.drawHashTable(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Inserting John: 25", this.canvas.width/2, 30);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.hashTable = new Array(5).fill(null).map(() => []);
+                    this.insert('John', 25);
+                    this.insert('Alice', 30);
+                    this.drawHashTable(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Inserting Alice: 30", this.canvas.width/2, 30);
+                }
+            }
+        ];
+
+        const deleteSteps = [
+            {
+                draw: (ctx) => {
+                    this.hashTable = new Array(5).fill(null).map(() => []);
+                    this.insert('John', 25);
+                    this.insert('Alice', 30);
+                    this.insert('Bob', 35);
+                    this.drawHashTable(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Initial Hash Table", this.canvas.width/2, 30);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.hashTable = new Array(5).fill(null).map(() => []);
+                    this.insert('John', 25);
+                    this.insert('Alice', 30);
+                    this.insert('Bob', 35);
+                    this.delete('Alice');
+                    this.drawHashTable(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Deleting Alice", this.canvas.width/2, 30);
+                }
+            }
+        ];
+
+        const searchSteps = [
+            {
+                draw: (ctx) => {
+                    this.hashTable = new Array(5).fill(null).map(() => []);
+                    this.insert('John', 25);
+                    this.insert('Alice', 30);
+                    this.insert('Bob', 35);
+                    this.drawHashTable(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Initial Hash Table", this.canvas.width/2, 30);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.drawHashTable(ctx, 'Alice');
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Searching for Alice", this.canvas.width/2, 30);
+                }
+            }
+        ];
+
+        this.animations = {
+            'insert': insertSteps,
+            'delete': deleteSteps,
+            'search': searchSteps
+        };
+    }
+
+    hash(key) {
+        let total = 0;
+        for (let i = 0; i < key.length; i++) {
+            total += key.charCodeAt(i);
+        }
+        return total % this.hashTable.length;
+    }
+
+    insert(key, value) {
+        const index = this.hash(key);
+        const bucket = this.hashTable[index];
+        
+        const existingEntry = bucket.find(entry => entry.key === key);
+        if (existingEntry) {
+            existingEntry.value = value;
+        } else {
+            bucket.push({ key, value });
+        }
+    }
+
+    delete(key) {
+        const index = this.hash(key);
+        const bucket = this.hashTable[index];
+        
+        const entryIndex = bucket.findIndex(entry => entry.key === key);
+        if (entryIndex !== -1) {
+            bucket.splice(entryIndex, 1);
+        }
+    }
+
+    drawHashTable(ctx, highlightKey = null) {
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Reduce number of buckets to 5
+        const bucketCount = 5;
+        const boxWidth = 80;
+        const boxHeight = 50;
+        const startX = (this.canvas.width - bucketCount * (boxWidth + 20)) / 2;
+        const startY = 80;
+        const spacing = 20;
+
+        // Modify hash function to work with 5 buckets
+        const modifiedHash = (key) => {
+            let total = 0;
+            for (let i = 0; i < key.length; i++) {
+                total += key.charCodeAt(i);
+            }
+            return total % bucketCount;
+        };
+
+        // Create a new hash table with 5 buckets
+        const hashTable = new Array(bucketCount).fill(null).map(() => []);
+
+        // Reinsert existing entries
+        ['John', 'Alice', 'Bob'].forEach(key => {
+            const index = modifiedHash(key);
+            const value = key === 'John' ? 25 : (key === 'Alice' ? 30 : 35);
+            const bucket = hashTable[index];
+            bucket.push({ key, value });
+        });
+
+        hashTable.forEach((bucket, index) => {
+            // Draw bucket index
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(`[${index}]`, startX + index * (boxWidth + spacing) + boxWidth/2, startY - 10);
+
+            // Draw bucket box
+            ctx.beginPath();
+            ctx.rect(startX + index * (boxWidth + spacing), startY, boxWidth, boxHeight);
+            ctx.strokeStyle = '#2c3e50';
+            ctx.stroke();
+
+            // Draw bucket contents
+            bucket.forEach((entry, bucketIndex) => {
+                const entryY = startY + bucketIndex * 25;
+                
+                // Highlight if searching for this key
+                const isHighlighted = entry.key === highlightKey;
+                
+                ctx.fillStyle = isHighlighted ? '#FF69B4' : 'black';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'left';
+                ctx.fillText(`${entry.key}: ${entry.value}`, 
+                    startX + index * (boxWidth + spacing) + 5, 
+                    entryY + 20
+                );
+            });
+        });
+    }
+
+    playAnimation(type) {
+        this.animationSteps = this.animations[type] || [];
+        this.play();
+    }
+}
+
 // Initialize animations
 document.addEventListener('DOMContentLoaded', () => {
     const arrayViz = new ArrayAnimation('array-viz');
@@ -862,6 +1380,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const linkedListViz = new LinkedListAnimation('linkedlist-viz');
     const binaryTreeViz = new BinaryTreeAnimation('binarytree-viz');
     const bstViz = new BSTAnimation('bst-viz');
+    const heapViz = new HeapAnimation('heap-viz');
+    const graphViz = new GraphAnimation('graph-viz');
+    const hashTableViz = new HashTableAnimation('hashtable-viz');
 
     // Add click handlers for buttons
     document.querySelectorAll('.viz-btn').forEach(button => {
@@ -887,6 +1408,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     break;
                 case 'bst-viz':
                     bstViz.playAnimation(operation);
+                    break;
+                case 'heap-viz':
+                    heapViz.playAnimation(operation);
+                    break;
+                case 'graph-viz':
+                    graphViz.playAnimation(operation);
+                    break;
+                case 'hashtable-viz':
+                    hashTableViz.playAnimation(operation);
                     break;
             }
         });

@@ -414,6 +414,191 @@ Algorithm: BST Operations
                     </section>
                 </div>
             </article>
+
+            <!-- Heap Section -->
+<article class="ds-card">
+    <h2>Heap</h2>
+    <div class="ds-content">
+        <section class="ds-theory">
+            <h3>What is a Heap?</h3>
+            <p>A heap is a specialized tree-based data structure that satisfies the heap property. In a max heap, parent nodes are always greater than or equal to their children.</p>
+            
+            <h3>When to Use?</h3>
+            <ul>
+                <li>Priority queue implementation</li>
+                <li>Sorting algorithms like Heap Sort</li>
+                <li>Finding k-th largest/smallest elements</li>
+            </ul>
+
+            <h3>Real-life Applications</h3>
+            <ul>
+                <li>Operating system task scheduling</li>
+                <li>Network routing algorithms</li>
+                <li>Median maintenance</li>
+            </ul>
+        </section>
+
+        <section class="ds-visualization">
+            <h3>Visualization</h3>
+            <div class="canvas-container">
+                <canvas id="heap-viz"></canvas>
+            </div>
+            <div class="visualization-controls">
+                <button class="viz-btn" data-operation="insert">Insert</button>
+                <button class="viz-btn" data-operation="delete">Delete</button>
+            </div>
+        </section>
+
+        <section class="ds-implementation">
+            <h3>Implementation</h3>
+            <pre><code>
+Algorithm: Heap Operations
+
+1. Insert(element):
+   add element to end of heap
+   heapify-up from bottom to top
+
+2. Delete(root):
+   replace root with last element
+   remove last element
+   heapify-down from top to bottom
+
+3. Heapify-Up:
+   compare element with parent
+   swap if violates heap property
+   repeat until heap property satisfied
+
+4. Heapify-Down:
+   compare element with children
+   swap with largest/smallest child
+   repeat until heap property satisfied</code></pre>
+        </section>
+    </div>
+</article>
+
+<!-- Graph Section -->
+<article class="ds-card">
+    <h2>Graph</h2>
+    <div class="ds-content">
+        <section class="ds-theory">
+            <h3>What is a Graph?</h3>
+            <p>A graph is a non-linear data structure consisting of vertices (nodes) and edges that connect these vertices. Graphs can be directed or undirected.</p>
+            
+            <h3>When to Use?</h3>
+            <ul>
+                <li>Social network connections</li>
+                <li>Routing and navigation systems</li>
+                <li>Dependency resolution</li>
+            </ul>
+
+            <h3>Real-life Applications</h3>
+            <ul>
+                <li>Google Maps routing</li>
+                <li>Social media friend recommendations</li>
+                <li>Network topology mapping</li>
+            </ul>
+        </section>
+
+        <section class="ds-visualization">
+            <h3>Visualization</h3>
+            <div class="canvas-container">
+                <canvas id="graph-viz"></canvas>
+            </div>
+            <div class="visualization-controls">
+                <button class="viz-btn" data-operation="addnode">Add Node</button>
+                <button class="viz-btn" data-operation="addedge">Add Edge</button>
+            </div>
+        </section>
+
+        <section class="ds-implementation">
+            <h3>Implementation</h3>
+            <pre><code>
+Algorithm: Graph Operations
+
+1. Add Node(value):
+   create new vertex with value
+   add to graph's vertex list
+
+2. Add Edge(source, destination):
+   create edge between two vertices
+   can be directed or undirected
+
+3. Depth-First Search(start):
+   mark start node as visited
+   for each unvisited neighbor:
+      recursively explore
+
+4. Breadth-First Search(start):
+   create queue, enqueue start
+   mark start as visited
+   while queue not empty:
+      dequeue node
+      explore unvisited neighbors</code></pre>
+        </section>
+    </div>
+</article>
+
+<!-- Hash Table Section -->
+<article class="ds-card">
+    <h2>Hash Table</h2>
+    <div class="ds-content">
+        <section class="ds-theory">
+            <h3>What is a Hash Table?</h3>
+            <p>A hash table is a data structure that implements an associative array or dictionary, using a hash function to compute an index into an array of buckets or slots.</p>
+            
+            <h3>When to Use?</h3>
+            <ul>
+                <li>Fast data retrieval</li>
+                <li>Implementing caches</li>
+                <li>Unique key-value storage</li>
+            </ul>
+
+            <h3>Real-life Applications</h3>
+            <ul>
+                <li>Database indexing</li>
+                <li>Caching in web browsers</li>
+                <li>Symbol tables in compilers</li>
+            </ul>
+        </section>
+
+        <section class="ds-visualization">
+            <h3>Visualization</h3>
+            <div class="canvas-container">
+                <canvas id="hashtable-viz"></canvas>
+            </div>
+            <div class="visualization-controls">
+                <button class="viz-btn" data-operation="insert">Insert</button>
+                <button class="viz-btn" data-operation="delete">Delete</button>
+                <button class="viz-btn" data-operation="search">Search</button>
+            </div>
+        </section>
+
+        <section class="ds-implementation">
+            <h3>Implementation</h3>
+            <pre><code>
+Algorithm: Hash Table Operations
+
+1. Hash Function:
+   convert key to array index
+   use modulo with table size
+
+2. Insert(key, value):
+   compute hash index
+   handle collisions (chaining/open addressing)
+   store key-value pair
+
+3. Search(key):
+   compute hash index
+   traverse bucket/chain
+   return value if found
+
+4. Delete(key):
+   compute hash index
+   find and remove key-value pair
+   handle potential collisions</code></pre>
+        </section>
+    </div>
+</article>
         </section>
     </main>
 
