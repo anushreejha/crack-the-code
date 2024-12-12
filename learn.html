@@ -157,6 +157,263 @@ Algorithm: Stack Operations
                     </section>
                 </div>
             </article>
+
+            <!-- Queue Section -->
+            <article class="ds-card">
+                <h2>Queue</h2>
+                <div class="ds-content">
+                    <section class="ds-theory">
+                        <h3>What is a Queue?</h3>
+                        <p>A queue is a linear data structure that follows the First-In-First-Out (FIFO) principle. Think of it like a line of people waiting.</p>
+                        
+                        <h3>When to Use?</h3>
+                        <ul>
+                            <li>Task scheduling</li>
+                            <li>Breadth-First Search</li>
+                            <li>Print job management</li>
+                        </ul>
+
+                        <h3>Real-life Applications</h3>
+                        <ul>
+                            <li>Ticket booking systems</li>
+                            <li>Call center phone systems</li>
+                            <li>Printer job queues</li>
+                        </ul>
+                    </section>
+
+                    <section class="ds-visualization">
+                        <h3>Visualization</h3>
+                        <div class="canvas-container">
+                            <canvas id="queue-viz"></canvas>
+                        </div>
+                        <div class="visualization-controls">
+                            <button class="viz-btn" data-operation="enqueue">Enqueue</button>
+                            <button class="viz-btn" data-operation="dequeue">Dequeue</button>
+                        </div>
+                    </section>
+
+                    <section class="ds-implementation">
+                        <h3>Implementation</h3>
+                        <pre><code>
+Algorithm: Queue Operations
+
+1. Initialize Queue:
+   queue = empty queue
+   front = -1
+   rear = -1
+
+2. Enqueue(element):
+   if queue is not full:
+      if queue is empty:
+         front = 0
+      increment rear
+      queue[rear] = element
+
+3. Dequeue():
+   if queue is not empty:
+      element = queue[front]
+      if front equals rear:
+         reset front and rear
+      else:
+         increment front
+      return element
+            </code></pre>
+                    </section>
+                </div>
+            </article>
+
+            <!-- Linked List Section -->
+            <article class="ds-card">
+                <h2>Linked List</h2>
+                <div class="ds-content">
+                    <section class="ds-theory">
+                        <h3>What is a Linked List?</h3>
+                        <p>A linked list is a linear data structure where elements are stored in nodes, and each node points to the next node in the sequence.</p>
+                        
+                        <h3>When to Use?</h3>
+                        <ul>
+                            <li>Dynamic memory allocation</li>
+                            <li>Implementing stacks and queues</li>
+                            <li>When frequent insertions/deletions are required</li>
+                        </ul>
+
+                        <h3>Real-life Applications</h3>
+                        <ul>
+                            <li>Music playlists</li>
+                            <li>Image viewers</li>
+                            <li>Web browser history</li>
+                        </ul>
+                    </section>
+
+                    <section class="ds-visualization">
+                        <h3>Visualization</h3>
+                        <div class="canvas-container">
+                            <canvas id="linkedlist-viz"></canvas>
+                        </div>
+                        <div class="visualization-controls">
+                            <button class="viz-btn" data-operation="insert">Insert</button>
+                            <button class="viz-btn" data-operation="delete">Delete</button>
+                        </div>
+                    </section>
+
+                    <section class="ds-implementation">
+                        <h3>Implementation</h3>
+                        <pre><code>
+Algorithm: Linked List Operations
+
+1. Create Node:
+   node contains value and next pointer
+
+2. Insert(position, element):
+   create new node
+   if position is start:
+      new node's next = head
+      head = new node
+   else:
+      traverse to position
+      new node's next = current node's next
+      current node's next = new node
+
+3. Delete(position):
+   if position is start:
+      head = head's next
+   else:
+      traverse to position
+      current node's next = current node's next's next
+            </code></pre>
+                    </section>
+                </div>
+            </article>
+
+            <!-- Binary Tree Section -->
+            <article class="ds-card">
+                <h2>Binary Tree</h2>
+                <div class="ds-content">
+                    <section class="ds-theory">
+                        <h3>What is a Binary Tree?</h3>
+                        <p>A binary tree is a tree data structure where each node has at most two children, referred to as the left child and right child.</p>
+                        
+                        <h3>When to Use?</h3>
+                        <ul>
+                            <li>Hierarchical data representation</li>
+                            <li>Expression parsing</li>
+                            <li>Huffman coding trees</li>
+                        </ul>
+
+                        <h3>Real-life Applications</h3>
+                        <ul>
+                            <li>File system directories</li>
+                            <li>Organization hierarchies</li>
+                            <li>Decision trees in machine learning</li>
+                        </ul>
+                    </section>
+
+                    <section class="ds-visualization">
+                        <h3>Visualization</h3>
+                        <div class="canvas-container">
+                            <canvas id="binarytree-viz"></canvas>
+                        </div>
+                        <div class="visualization-controls">
+                            <button class="viz-btn" data-operation="insert">Insert</button>
+                            <button class="viz-btn" data-operation="delete">Delete</button>
+                        </div>
+                    </section>
+
+                    <section class="ds-implementation">
+                        <h3>Implementation</h3>
+                        <pre><code>
+Algorithm: Binary Tree Operations
+
+1. Create Node:
+   node contains value, left, and right pointers
+
+2. Insert(root, value):
+   if root is null:
+      create new node
+   else if value < root.value:
+      insert in left subtree
+   else if value > root.value:
+      insert in right subtree
+
+3. Delete(root, value):
+   if root is null:
+      return null
+   if value < root.value:
+      delete from left subtree
+   else if value > root.value:
+      delete from right subtree
+   else:
+      handle node deletion cases
+            </code></pre>
+                    </section>
+                </div>
+            </article>
+
+            <!-- Binary Search Tree Section -->
+            <article class="ds-card">
+                <h2>Binary Search Tree (BST)</h2>
+                <div class="ds-content">
+                    <section class="ds-theory">
+                        <h3>What is a Binary Search Tree?</h3>
+                        <p>A BST is a binary tree where the left subtree of a node contains only nodes with keys less than the node's key, and the right subtree contains only nodes with keys greater than the node's key.</p>
+                        
+                        <h3>When to Use?</h3>
+                        <ul>
+                            <li>Efficient searching</li>
+                            <li>Maintaining sorted data</li>
+                            <li>Implementing map and set data structures</li>
+                        </ul>
+
+                        <h3>Real-life Applications</h3>
+                        <ul>
+                            <li>Database indexing</li>
+                            <li>Autocomplete features</li>
+                            <li>Priority queues</li>
+                        </ul>
+                    </section>
+
+                    <section class="ds-visualization">
+                        <h3>Visualization</h3>
+                        <div class="canvas-container">
+                            <canvas id="bst-viz"></canvas>
+                        </div>
+                        <div class="visualization-controls">
+                            <button class="viz-btn" data-operation="insert">Insert</button>
+                            <button class="viz-btn" data-operation="delete">Delete</button>
+                        </div>
+                    </section>
+
+                    <section class="ds-implementation">
+                        <h3>Implementation</h3>
+                        <pre><code>
+Algorithm: BST Operations
+
+1. Search(root, value):
+   if root is null or root.value equals value:
+      return root
+   if value < root.value:
+      search left subtree
+   else:
+      search right subtree
+
+2. Insert(root, value):
+   if root is null:
+      create new node
+   if value < root.value:
+      insert in left subtree
+   else:
+      insert in right subtree
+
+3. Delete(root, value):
+   find node to delete
+   handle three cases:
+   - Node with no children
+   - Node with one child
+   - Node with two children
+            </code></pre>
+                    </section>
+                </div>
+            </article>
         </section>
     </main>
 
