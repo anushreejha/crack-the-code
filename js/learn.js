@@ -92,9 +92,38 @@ class ArrayAnimation extends DataStructureAnimation {
             }
         ];
 
+        // Search Animation
+        const searchSteps = [
+            {
+                draw: (ctx) => {
+                    this.drawArray(ctx, [5, 2, 7, 1, 9], -1);
+                    ctx.fillText("Searching for 7", 300, 50);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.drawArray(ctx, [5, 2, 7, 1, 9], 0);
+                    ctx.fillText("Checking 5", 300, 50);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.drawArray(ctx, [5, 2, 7, 1, 9], 1);
+                    ctx.fillText("Checking 2", 300, 50);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.drawArray(ctx, [5, 2, 7, 1, 9], 2);
+                    ctx.fillText("Found 7 at index 2!", 300, 50);
+                }
+            }
+        ];
+
         this.animations = {
             'insert': insertSteps,
-            'delete': deleteSteps
+            'delete': deleteSteps,
+            'search': searchSteps
         };
     }
 
@@ -113,6 +142,11 @@ class ArrayAnimation extends DataStructureAnimation {
 
             ctx.fillStyle = 'white';
             ctx.fillText(value.toString(), startX + index * boxSize + boxSize/2, startY + boxSize/2);
+            
+            // Draw index
+            ctx.fillStyle = '#2c3e50';
+            ctx.font = '12px Arial';
+            ctx.fillText(index.toString(), startX + index * boxSize + boxSize/2, startY - 10);
         });
     }
 
@@ -142,6 +176,12 @@ class StackAnimation extends DataStructureAnimation {
                     this.drawStack(ctx, [1, 2, 3], 2);
                     ctx.fillText("Pushing 3", 300, 50);
                 }
+            },
+            {
+                draw: (ctx) => {
+                    this.drawStack(ctx, [1, 2, 3], -1);
+                    ctx.fillText("3 Pushed Successfully", 300, 50);
+                }
             }
         ];
 
@@ -167,9 +207,26 @@ class StackAnimation extends DataStructureAnimation {
             }
         ];
 
+        // Peek Animation
+        const peekSteps = [
+            {
+                draw: (ctx) => {
+                    this.drawStack(ctx, [1, 2, 3], -1);
+                    ctx.fillText("Initial Stack", 300, 50);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.drawStack(ctx, [1, 2, 3], 2);
+                    ctx.fillText("Peeking Top Element (3)", 300, 50);
+                }
+            }
+        ];
+
         this.animations = {
             'push': pushSteps,
-            'pop': popSteps
+            'pop': popSteps,
+            'peek': peekSteps
         };
     }
 
@@ -187,8 +244,17 @@ class StackAnimation extends DataStructureAnimation {
             ctx.strokeStyle = '#E6E6FA';
             ctx.stroke();
 
+            // Main value text (matching array style)
             ctx.fillStyle = 'white';
+            ctx.font = '16px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
             ctx.fillText(value.toString(), startX + boxSize/2, y + boxSize/2);
+            
+            // Index text (matching array style)
+            ctx.fillStyle = '#2c3e50';
+            ctx.font = '12px Arial';
+            ctx.fillText(index.toString(), startX + boxSize/2, y - 10);
         });
     }
 
