@@ -599,6 +599,63 @@ Algorithm: Hash Table Operations
         </section>
     </div>
 </article>
+
+       <!-- Trie Section -->
+<article class="ds-card">
+    <h2>Trie</h2>
+    <div class="ds-content">
+        <section class="ds-theory">
+            <h3>What is a Trie?</h3>
+            <p>A trie (prefix tree) is a tree-like data structure used to store a dynamic set of strings. Each node represents a character, and paths from root to leaf form complete words.</p>
+            
+            <h3>When to Use?</h3>
+            <ul>
+                <li>Autocomplete and spell checking</li>
+                <li>Prefix matching</li>
+                <li>IP routing tables</li>
+            </ul>
+
+            <h3>Real-life Applications</h3>
+            <ul>
+                <li>Search engine suggestions</li>
+                <li>Dictionary implementations</li>
+                <li>Phone contact search</li>
+            </ul>
+        </section>
+
+        <section class="ds-visualization">
+            <h3>Visualization</h3>
+            <div class="canvas-container">
+                <canvas id="trie-viz"></canvas>
+            </div>
+            <div class="visualization-controls">
+                <button class="viz-btn" data-operation="insert">Insert</button>
+                <button class="viz-btn" data-operation="search">Search</button>
+                <button class="viz-btn" data-operation="delete">Delete</button>
+            </div>
+        </section>
+
+        <section class="ds-implementation">
+            <h3>Implementation</h3>
+            <pre><code>
+Algorithm: Trie Operations
+
+1. Insert(word):
+   traverse/create path for each character
+   mark last node as end of word
+
+2. Search(word):
+   traverse path of characters
+   check if last node marks end of word
+
+3. Delete(word):
+   find word's path
+   remove word marker
+   remove unused nodes</code></pre>
+        </section>
+    </div>
+</article>
+
         </section>
     </main>
 

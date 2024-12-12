@@ -1189,8 +1189,9 @@ class HashTableAnimation extends DataStructureAnimation {
             },
             {
                 draw: (ctx) => {
-                    this.hashTable = new Array(5).fill(null).map(() => []);
-                    this.insert('John', 25);
+                    // Explicitly insert John
+                    const johnIndex = this.hash('John');
+                    this.hashTable[johnIndex].push({ key: 'John', value: 25 });
                     this.drawHashTable(ctx);
                     ctx.fillStyle = 'black';
                     ctx.font = '16px Arial';
@@ -1200,9 +1201,11 @@ class HashTableAnimation extends DataStructureAnimation {
             },
             {
                 draw: (ctx) => {
-                    this.hashTable = new Array(5).fill(null).map(() => []);
-                    this.insert('John', 25);
-                    this.insert('Alice', 30);
+                    // Explicitly insert Alice
+                    const johnIndex = this.hash('John');
+                    const aliceIndex = this.hash('Alice');
+                    this.hashTable[johnIndex] = [{ key: 'John', value: 25 }];
+                    this.hashTable[aliceIndex].push({ key: 'Alice', value: 30 });
                     this.drawHashTable(ctx);
                     ctx.fillStyle = 'black';
                     ctx.font = '16px Arial';
@@ -1215,10 +1218,16 @@ class HashTableAnimation extends DataStructureAnimation {
         const deleteSteps = [
             {
                 draw: (ctx) => {
+                    // Preset hash table with three entries
                     this.hashTable = new Array(5).fill(null).map(() => []);
-                    this.insert('John', 25);
-                    this.insert('Alice', 30);
-                    this.insert('Bob', 35);
+                    const johnIndex = this.hash('John');
+                    const aliceIndex = this.hash('Alice');
+                    const bobIndex = this.hash('Bob');
+                    
+                    this.hashTable[johnIndex].push({ key: 'John', value: 25 });
+                    this.hashTable[aliceIndex].push({ key: 'Alice', value: 30 });
+                    this.hashTable[bobIndex].push({ key: 'Bob', value: 35 });
+                    
                     this.drawHashTable(ctx);
                     ctx.fillStyle = 'black';
                     ctx.font = '16px Arial';
@@ -1228,11 +1237,15 @@ class HashTableAnimation extends DataStructureAnimation {
             },
             {
                 draw: (ctx) => {
-                    this.hashTable = new Array(5).fill(null).map(() => []);
-                    this.insert('John', 25);
-                    this.insert('Alice', 30);
-                    this.insert('Bob', 35);
-                    this.delete('Alice');
+                    // Explicitly delete Alice
+                    const johnIndex = this.hash('John');
+                    const aliceIndex = this.hash('Alice');
+                    const bobIndex = this.hash('Bob');
+                    
+                    this.hashTable[johnIndex] = [{ key: 'John', value: 25 }];
+                    this.hashTable[bobIndex] = [{ key: 'Bob', value: 35 }];
+                    this.hashTable[aliceIndex] = []; // Remove Alice
+                    
                     this.drawHashTable(ctx);
                     ctx.fillStyle = 'black';
                     ctx.font = '16px Arial';
@@ -1245,10 +1258,16 @@ class HashTableAnimation extends DataStructureAnimation {
         const searchSteps = [
             {
                 draw: (ctx) => {
+                    // Preset hash table
                     this.hashTable = new Array(5).fill(null).map(() => []);
-                    this.insert('John', 25);
-                    this.insert('Alice', 30);
-                    this.insert('Bob', 35);
+                    const johnIndex = this.hash('John');
+                    const aliceIndex = this.hash('Alice');
+                    const bobIndex = this.hash('Bob');
+                    
+                    this.hashTable[johnIndex].push({ key: 'John', value: 25 });
+                    this.hashTable[aliceIndex].push({ key: 'Alice', value: 30 });
+                    this.hashTable[bobIndex].push({ key: 'Bob', value: 35 });
+                    
                     this.drawHashTable(ctx);
                     ctx.fillStyle = 'black';
                     ctx.font = '16px Arial';
@@ -1258,6 +1277,7 @@ class HashTableAnimation extends DataStructureAnimation {
             },
             {
                 draw: (ctx) => {
+                    // Highlight Alice during search
                     this.drawHashTable(ctx, 'Alice');
                     ctx.fillStyle = 'black';
                     ctx.font = '16px Arial';
@@ -1274,34 +1294,13 @@ class HashTableAnimation extends DataStructureAnimation {
         };
     }
 
+    // Modify hash method to ensure consistent hashing
     hash(key) {
         let total = 0;
         for (let i = 0; i < key.length; i++) {
             total += key.charCodeAt(i);
         }
-        return total % this.hashTable.length;
-    }
-
-    insert(key, value) {
-        const index = this.hash(key);
-        const bucket = this.hashTable[index];
-        
-        const existingEntry = bucket.find(entry => entry.key === key);
-        if (existingEntry) {
-            existingEntry.value = value;
-        } else {
-            bucket.push({ key, value });
-        }
-    }
-
-    delete(key) {
-        const index = this.hash(key);
-        const bucket = this.hashTable[index];
-        
-        const entryIndex = bucket.findIndex(entry => entry.key === key);
-        if (entryIndex !== -1) {
-            bucket.splice(entryIndex, 1);
-        }
+        return total % 5;
     }
 
     drawHashTable(ctx, highlightKey = null) {
@@ -1372,6 +1371,184 @@ class HashTableAnimation extends DataStructureAnimation {
     }
 }
 
+class TrieNode {
+    constructor() {
+        this.children = {};
+        this.isEndOfWord = false;
+    }
+}
+
+class TrieAnimation extends DataStructureAnimation {
+    constructor(canvasId) {
+        super(canvasId);
+        this.root = new TrieNode();
+        this.setupAnimations();
+    }
+
+    setupAnimations() {
+        const insertSteps = [
+            {
+                draw: (ctx) => {
+                    this.root = new TrieNode(); // Reset the Trie
+                    this.drawTrie(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Empty Trie", this.canvas.width / 2, 30);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.insert("cat");
+                    this.drawTrie(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Inserting 'cat'", this.canvas.width / 2, 30);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.insert("car");
+                    this.drawTrie(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Inserting 'car'", this.canvas.width / 2, 30);
+                }
+            }
+        ];
+
+        const searchSteps = [
+            {
+                draw: (ctx) => {
+                    this.insert("cat");
+                    this.insert("car");
+                    this.drawTrie(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Trie with 'cat' and 'car'", this.canvas.width / 2, 30);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    const result = this.search("cat");
+                    this.drawTrie(ctx, "cat");
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(`Searching for 'cat': ${result ? 'Found' : 'Not Found'}`, this.canvas.width / 2, 30);
+                }
+            }
+        ];
+
+        const deleteSteps = [
+            {
+                draw: (ctx) => {
+                    this.insert("cat");
+                    this.insert("car");
+                    this.drawTrie(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Trie with 'cat' and 'car'", this.canvas.width / 2, 30);
+                }
+            },
+            {
+                draw: (ctx) => {
+                    this.delete("cat");
+                    this.drawTrie(ctx);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '16px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Deleting 'cat'", this.canvas.width / 2, 30);
+                }
+            }
+        ];
+
+        this.animations = {
+            'insert': insertSteps,
+            'search': searchSteps,
+            'delete': deleteSteps
+        };
+    }
+
+    insert(word) {
+        let currentNode = this.root;
+        for (let char of word) {
+            if (!currentNode.children[char]) {
+                currentNode.children[char] = new TrieNode();
+            }
+            currentNode = currentNode.children[char];
+        }
+        currentNode.isEndOfWord = true;
+    }
+
+    search(word) {
+        let currentNode = this.root;
+        for (let char of word) {
+            if (!currentNode.children[char]) {
+                return false;
+            }
+            currentNode = currentNode.children[char];
+        }
+        return currentNode.isEndOfWord;
+    }
+
+    delete(word) {
+        this.deleteHelper(this.root, word, 0);
+    }
+
+    deleteHelper(node, word, depth) {
+        if (!node) return null;
+
+        if (depth === word.length) {
+            if (node.isEndOfWord) {
+                node.isEndOfWord = false;
+            }
+            return Object.keys(node.children).length === 0 ? null : node;
+        }
+
+        const char = word[depth];
+        node.children[char] = this.deleteHelper(node.children[char], word, depth + 1);
+
+        return Object.keys(node.children).length === 0 && !node.isEndOfWord ? null : node;
+    }
+
+    drawTrie(ctx, highlightWord = null) {
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        const startX = this.canvas.width / 2;
+        const startY = 80;
+        const spacing = 40;
+
+        const drawNode = (node, x, y, word) => {
+            ctx.fillStyle = 'black';
+            ctx.fillText(word, x, y);
+            const children = Object.keys(node.children);
+            const childX = x - (children.length - 1) * spacing / 2;
+
+            children.forEach((char, index) => {
+                const childNode = node.children[char];
+                const childWord = word + char;
+                ctx.beginPath();
+                ctx.moveTo(x, y + 5);
+                ctx.lineTo(childX + index * spacing, y + spacing);
+                ctx.stroke();
+
+                drawNode(childNode, childX + index * spacing, y + spacing, childWord);
+            });
+        };
+
+        drawNode(this.root, startX, startY, '');
+    }
+
+    playAnimation(type) {
+        this.animationSteps = this.animations[type] || [];
+        this.play();
+    }
+}
+
 // Initialize animations
 document.addEventListener('DOMContentLoaded', () => {
     const arrayViz = new ArrayAnimation('array-viz');
@@ -1383,6 +1560,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const heapViz = new HeapAnimation('heap-viz');
     const graphViz = new GraphAnimation('graph-viz');
     const hashTableViz = new HashTableAnimation('hashtable-viz');
+    const trieViz = new TrieAnimation('trie-viz');
 
     // Add click handlers for buttons
     document.querySelectorAll('.viz-btn').forEach(button => {
@@ -1417,6 +1595,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     break;
                 case 'hashtable-viz':
                     hashTableViz.playAnimation(operation);
+                    break;
+                case 'trie-viz':
+                    trieViz.playAnimation(operation);
                     break;
             }
         });
