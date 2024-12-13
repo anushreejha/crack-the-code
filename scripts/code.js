@@ -1,70 +1,65 @@
-// Initialize CodeMirror
-const codeMirror = CodeMirror.fromTextArea(document.getElementById("code"), {
-    lineNumbers: true,
-    mode: "javascript",
-    theme: "default"
-});
+const RAPIDAPI_KEY = '3c0ff122aemsh4334aacc701864fp125f27jsn851347e2201a'; // Your RapidAPI key
 
-// Sample problems
-const problems = [
-    {
-        title: "Reverse a String",
-        description: "Given a string, return it reversed.",
-        examples: [
-            { input: '"hello"', output: '"olleh"' },
-            { input: '"world"', output: '"dlrow"' }
-        ],
-        constraints: "The input string will have at most 1000 characters.",
-        reference: "https://example.com/problem1"
-    },
-    // Add more problems as needed
-];
-
-let currentProblemIndex = 0;
-
-function loadProblem(index) {
-    const problem = problems[index];
-    document.getElementById("problem-title").innerText = `Problem ${index + 1}: ${problem.title}`;
-    document.getElementById("problem-description").innerText = problem.description;
-    const examplesList = problem.examples.map(example => `<li>Input: ${example.input} → Output: ${example.output}</li>`).join('');
-    document.getElementById("examples-list").innerHTML = examplesList;
-    document.getElementById("problem-constraints").innerText = problem.constraints;
+async function fetchWithRetry(url, options, retries = 5) {
+    for (let i = 0; i < retries; i++) {
+        const response = await fetch(url, options);
+        if (response.ok) {
+            return response;
+        }
+        if (response.status === 429) {
+            const waitTime = Math.pow(2, i) * 1000; // Exponential backoff
+            console.warn(`Rate limit exceeded. Retrying in ${waitTime / 1000} seconds...`);
+            await new Promise(resolve => setTimeout(resolve, waitTime));
+        } else {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+    }
+    throw new Error('Max retries reached');
 }
 
-document.getElementById("prev-question").addEventListener("click", () => {
-    if (currentProblemIndex > 0) {
-        currentProblemIndex--;
-        loadProblem(currentProblemIndex);
-    }
-});
-
-document.getElementById("next-question").addEventListener("click", () => {
-    if (currentProblemIndex < problems.length - 1) {
-        currentProblemIndex++;
-        loadProblem(currentProblemIndex);
-    }
-});
-
-// Compile button functionality
-document.getElementById("compile-button").addEventListener("click", () => {
-    const code = codeMirror.getValue();
-    const language = document.getElementById("language-select").value; // Get selected language
-    let output;
+// Run code function
+document.getElementById("run-button").addEventListener("click", async function() {
+    const sourceCode = document.getElementById("code").value;
+    const languageId = {
+        javascript: 63, // JavaScript
+        python: 71,     // Python
+        c: 48           // C
+    }[document.getElementById("language-select").value];
 
     try {
-        if (language === "javascript") {
-            output = eval(code); // Execute JavaScript code
-        } else if (language === "python") {
-            // Simulate Python execution (you can use a library like Brython for real execution)
-            output = "Python execution not supported in this demo.";
-        }
+        // Create a submission
+        const submissionResponse = await fetchWithRetry('https://judge0-ce.p.rapidapi.com/submissions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-rapidapi-key': '3c0ff122aemsh4334aacc701864fp125f27jsn851347e2201a', // Use the API key here
+                'x-rapidapi-host': 'judge0-ce.p.rapidapi.com'
+            },
+            body: JSON.stringify({
+                source_code: sourceCode,
+                language_id: languageId,
+                stdin: '',
+                expected_output: ''
+            })
+        });
+
+        const submissionData = await submissionResponse.json();
+        const token = submissionData.token; // Get the token for the submission
+
+        // Check the submission result
+        const resultResponse = await fetchWithRetry(`https://judge0-ce.p.rapidapi.com/submissions/${token}?base64_encoded=false`, {
+            method: 'GET',
+            headers: {
+                'x-rapidapi-key': RAPIDAPI_KEY, // Use the API key here
+                'x-rapidapi-host': 'judge0-ce.p.rapidapi.com'
+            }
+        });
+
+        const resultData = await resultResponse.json();
+        document.getElementById("output").textContent = resultData.stdout || resultData.stderr || 'No output';
     } catch (error) {
-        output = error.message; // Capture any errors
+        console.error('Error:', error);
+        document.getElementById("output").textContent = 'Error: ' + error.message;
     }
-
-    document.getElementById("output").textContent = output;
 });
-
-// Load the first problem on page load
-loadProblem(currentProblemIndex);
  
