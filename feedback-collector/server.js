@@ -12,9 +12,12 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
+// Path to the CSV file
+const csvFilePath = path.join(__dirname, 'feedback.csv');
+
 // CSV Writer setup
 const csvWriter = createObjectCsvWriter({
-    path: path.join(__dirname, 'feedback.csv'),
+    path: csvFilePath,
     header: [
         { id: 'message', title: 'Message' },
         { id: 'name', title: 'Name' },
@@ -23,6 +26,27 @@ const csvWriter = createObjectCsvWriter({
     ],
     append: true // Append to the file if it exists
 });
+
+// Function to check if the CSV file exists and write headers if it doesn't
+const initializeCsvFile = async () => {
+    if (!fs.existsSync(csvFilePath)) {
+        // If the file does not exist, create it and write the headers
+        const headers = [
+            { id: 'message', title: 'Message' },
+            { id: 'name', title: 'Name' },
+            { id: 'email', title: 'Email' },
+            { id: 'feedbackType', title: 'Feedback Type' },
+        ];
+        const writer = createObjectCsvWriter({
+            path: csvFilePath,
+            header: headers,
+        });
+        await writer.writeRecords([]); // Create the file with headers
+    }
+};
+
+// Initialize the CSV file on server start
+initializeCsvFile();
 
 // Endpoint to receive feedback
 app.post('/feedback', (req, res) => {
@@ -42,7 +66,7 @@ app.post('/feedback', (req, res) => {
 
 // Add a route for the root URL
 app.get('/', (req, res) => {
-    res.send('Welcome to the Feedback Collector API!'); // Customize this message
+    res.send('Welcome to the Feedback Collector API!');
 });
 
 // Start the server
