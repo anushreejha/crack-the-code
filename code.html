@@ -8,18 +8,91 @@
     <link rel="stylesheet" href="styles/code.css">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="logo">Crack The Code</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="learn.html">Learn</a>
+                <a href="code.html">Practice</a>
+                <a href="discuss.html">Discuss</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
-        <h1>Online Code Editor</h1>
-        <select id="language-select">
-            <option value="javascript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="c">C</option>
-        </select>
-        <textarea id="code" name="code" placeholder="Write your code here..."></textarea>
-        <button id="run-button">Run Code</button>
-        <pre id="output"></pre>
+        <div class="questions">
+            <h1>DSA Questions</h1> <br>
+            <div class="nav-arrows">
+                <button class="arrow" id="prev-question">&lt;</button>
+                <button class="arrow" id="next-question">&gt;</button>
+            </div>
+            <div id="question-list">
+                <div class="question" id="question-1">
+                    <h3>1. Reverse a String</h3>
+                    <p>Given a string, return it reversed.</p>
+                </div>
+                <div class="question" id="question-2" style="display: none;">
+                    <h3>2. Find the Maximum Element</h3>
+                    <p>Given an array, find the maximum element.</p>
+                </div>
+                <div class="question" id="question-3" style="display: none;">
+                    <h3>3. Check for Palindrome</h3>
+                    <p>Check if a given string is a palindrome.</p>
+                </div>
+                <div class="question" id="question-4" style="display: none;">
+                    <h3>4. FizzBuzz</h3>
+                    <p>Print numbers from 1 to 100, but for multiples of 3 print "Fizz" and for multiples of 5 print "Buzz".</p>
+                </div>
+                <div class="question" id="question-5" style="display: none;">
+                    <h3>5. Merge Two Sorted Arrays</h3>
+                    <p>Merge two sorted arrays into one sorted array.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="editor">
+            <h1>Online Code Editor</h1> <br>
+            <select id="language-select">
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+                <option value="c">C</option>
+            </select>
+            <textarea id="code" name="code" placeholder="Write your code here..."></textarea>
+            <button id="run-button">Run Code</button>
+            <div class="output-box">
+                <p>Output</p>
+            </div>
+        </div>
     </div>
 
     <script src="scripts/code.js"></script>
+    <script>
+        let currentQuestionIndex = 0;
+        const questions = document.querySelectorAll('.question');
+
+        function showQuestion(index) {
+            questions.forEach((question, i) => {
+                question.style.display = (i === index) ? 'block' : 'none';
+            });
+        }
+
+        document.getElementById('prev-question').addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+            }
+        });
+
+        document.getElementById('next-question').addEventListener('click', () => {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+            }
+        });
+
+        // Show the first question initially
+        showQuestion(currentQuestionIndex);
+    </script>
 </body>
 </html>

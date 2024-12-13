@@ -5,18 +5,85 @@ body {
     padding: 0;
 }
 
-.container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+.navbar {
+    background-color: #6a1b9a; /* Purple */
+    color: white;
+    padding: 10px;
 }
 
-h1 {
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 60px); /* Adjust for navbar height */
+}
+
+.questions {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    overflow-y: auto;
+}
+
+.editor {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: #6a1b9a; /* Purple */
     text-align: center;
-    color: #333;
+}
+
+h3 {
+    font-size: 1.5em; /* Match the font size of the code editor */
+}
+
+.nav-arrows {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.arrow {
+    background: #FF69B4; /* Pink */
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 16px;
+    margin: 0 20px;
+    width: 100px;
+}
+
+.arrow:hover {
+    background-color: #8A2BE2; /* Purple */
+}
+
+.question {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 select {
@@ -39,7 +106,7 @@ textarea {
 button {
     width: 100%;
     padding: 10px;
-    background-color: #5cb85c;
+    background-color: #8A2BE2; /* Purple */
     color: white;
     border: none;
     border-radius: 4px;
@@ -48,14 +115,15 @@ button {
 }
 
 button:hover {
-    background-color: #4cae4c;
+    background-color: #6a1b9a; /* Darker Purple */
 }
 
-pre {
-    background-color: #f8f8f8;
+.output-box {
+    margin-top: 20px;
     padding: 10px;
+    background-color: #f0f0f0; /* Light grey background */
     border: 1px solid #ccc;
     border-radius: 4px;
-    white-space: pre-wrap; /* Allows wrapping */
-    word-wrap: break-word; /* Break long words */
+    color: #888; /* Grey text */
+    font-size: 16px; /* Match font size */
 }
