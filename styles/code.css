@@ -1,3 +1,11 @@
+:root {
+    --primary-purple: #8A2BE2;
+    --light-purple: #E6E6FA;
+    --pink: #FF69B4;
+    --light-pink: #FFC0CB;
+    --white: #FFFFFF;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -6,12 +14,14 @@ body {
 }
 
 .navbar {
-    background-color: #6a1b9a; 
-    color: white;
-    padding: 10px;
+    background-color: var(--primary-purple);
+    color: var(--white);
+    padding: 1rem 2rem;
 }
 
 .navbar-content {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -23,10 +33,21 @@ body {
     font-size: 24px;
 }
 
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
 .nav-links a {
-    color: white;
+    color: var(--white);
     text-decoration: none;
-    margin-left: 20px;
+    margin-left: 0;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--light-pink);
 }
 
 .container {

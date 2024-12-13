@@ -1,21 +1,33 @@
+:root {
+    --primary-purple: #8A2BE2;
+    --light-purple: #E6E6FA;
+    --pink: #FF69B4;
+    --light-pink: #FFC0CB;
+    --white: #FFFFFF;
+}
+
 body {
     background-color: #f5f6fa;
     color: #2c3e50;
     font-family: 'Arial', sans-serif;
     padding: 20px;
+    padding-top: 80px;
 }
 
 .learn-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .page-title {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 40px;
-    color: #8A2BE2;
+    color: #6a1b9a;
 }
 
 .ds-grid {
@@ -122,4 +134,42 @@ code {
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.9rem;
     color: #2c3e50;
-} 
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--primary-purple);
+    color: var(--white);
+    padding: 1rem 2rem;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    margin-left: 0;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--light-pink);
+}
+  
