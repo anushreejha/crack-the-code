@@ -1,14 +1,34 @@
 const sendButton = document.getElementById('send-button');
 const messageInput = document.getElementById('message-input');
-const chatHistory = document.getElementById('chat-history');
 
 sendButton.addEventListener('click', () => {
     const message = messageInput.value;
+    const name = document.getElementById('name-input').value;
+    const email = document.getElementById('email-input').value;
+    const feedbackType = document.getElementById('feedback-dropdown').value;
+
     if (message) {
-        const messageElement = document.createElement('div');
-        messageElement.textContent = message;
-        chatHistory.appendChild(messageElement);
-        messageInput.value = ''; // Clear input after sending
-        chatHistory.scrollTop = chatHistory.scrollHeight; // Auto-scroll to the bottom
+        // Send feedback to the server
+        fetch('http://localhost:3000/feedback', { // Update with your server URL
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message, name, email, feedbackType }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            // Clear the input fields after sending
+            messageInput.value = '';
+            document.getElementById('name-input').value = '';
+            document.getElementById('email-input').value = '';
+            document.getElementById('feedback-dropdown').selectedIndex = 0; // Reset dropdown
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    } else {
+        alert('Please enter a message before sending.'); // Alert if message is empty
     }
 });
