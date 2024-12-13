@@ -1,0 +1,87 @@
+:root {
+    --primary-purple: #8A2BE2;
+    --light-purple: #E6E6FA;
+    --pink: #FF69B4;
+    --light-pink: #FFC0CB;
+    --white: #FFFFFF;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+#navbar {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+#navbar a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+#chat-section {
+    margin: 100px;
+    background: var(--light-purple);
+    padding: 50px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 60%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+#feedback-type {
+    margin-bottom: 10px;
+}
+#feedback-dropdown {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-style: italic;
+}
+
+#message-input {
+    width: 80%;
+    padding: 70px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    font-size: 1rem;
+    line-height: 1.5; /* Adjust line height for better alignment */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+#name-input,
+#email-input {
+    width: 80%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+#send-button {
+    padding: 8px 16px;
+    border: none;
+    background-color: var(--pink);
+    color: var(--white);
+    border-radius: 5px;
+    cursor: pointer;
+    width: 80%;
+}
+#send-button:hover {
+    background-color: var(--primary-purple);
+}
+
+h1 {
+    color: #6a1b9a;
+    margin-bottom: 20px;
+}

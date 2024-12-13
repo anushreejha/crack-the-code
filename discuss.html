@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reach Out - Crack The Code</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/discuss.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="logo">Crack The Code</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="learn.html">Learn</a>
+                <a href="code.html">Practice</a>
+                <a href="discuss.html">Reach Out</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="chat-section">
+        <h1>What do you think?</h1>
+        <div id="feedback-type">
+            <select id="feedback-dropdown">
+                <option value="" disabled selected>Select Type</option>
+                <option value="suggestion">Suggestion</option>
+                <option value="issue">Issue</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <input type="text" id="message-input" placeholder="Type your message here..." />
+        <input type="text" id="name-input" placeholder="Your Name (optional)" />
+        <input type="email" id="email-input" placeholder="Your Email (optional)" />
+        <button id="send-button">Send</button>
+    </div>
+
+    <script src="scripts/discuss.js"></script>
+
+</body>
+</html>
