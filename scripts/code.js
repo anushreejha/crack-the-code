@@ -1,4 +1,4 @@
-const RAPIDAPI_KEY = '3c0ff122aemsh4334aacc701864fp125f27jsn851347e2201a'; // Your RapidAPI key
+const RAPIDAPI_KEY = '3c0ff122aemsh4334aacc701864fp125f27jsn851347e2201a'; // RapidAPI key
 
 async function fetchWithRetry(url, options, retries = 5) {
     for (let i = 0; i < retries; i++) {
@@ -32,7 +32,7 @@ document.getElementById("run-button").addEventListener("click", async function()
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-rapidapi-key': '3c0ff122aemsh4334aacc701864fp125f27jsn851347e2201a', // Use the API key here
+                'x-rapidapi-key': '3c0ff122aemsh4334aacc701864fp125f27jsn851347e2201a', 
                 'x-rapidapi-host': 'judge0-ce.p.rapidapi.com'
             },
             body: JSON.stringify({
@@ -44,13 +44,13 @@ document.getElementById("run-button").addEventListener("click", async function()
         });
 
         const submissionData = await submissionResponse.json();
-        const token = submissionData.token; // Get the token for the submission
+        const token = submissionData.token; 
 
         // Check the submission result
         const resultResponse = await fetchWithRetry(`https://judge0-ce.p.rapidapi.com/submissions/${token}?base64_encoded=false`, {
             method: 'GET',
             headers: {
-                'x-rapidapi-key': RAPIDAPI_KEY, // Use the API key here
+                'x-rapidapi-key': RAPIDAPI_KEY, 
                 'x-rapidapi-host': 'judge0-ce.p.rapidapi.com'
             }
         });
