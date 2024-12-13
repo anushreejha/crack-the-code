@@ -49,14 +49,14 @@ body {
 
 #message-input {
     width: 80%;
-    padding: 70px;
+    height: 100px;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
     font-size: 1rem;
-    font-size: 1rem;
-    line-height: 1.5; /* Adjust line height for better alignment */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    resize: none;
+    box-sizing: border-box;
 }
 
 #name-input,
