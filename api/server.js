@@ -18,10 +18,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// Serve static files
-app.use('/styles', express.static(path.join(__dirname, '../styles'))); // Serve CSS files
-app.use('/scripts', express.static(path.join(__dirname, '../scripts'))); // Serve JS files
-app.use(express.static(path.join(__dirname, '../pages'))); // Serve HTML files
+// Serve static files for CSS and JS
+app.use('/styles', express.static(path.join(__dirname, '../styles')));
+app.use('/scripts', express.static(path.join(__dirname, '../scripts')));
 
 // Routes for HTML pages
 app.get('/', (req, res) => {
@@ -72,9 +71,5 @@ app.post('/feedback', async (req, res) => {
   }
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
-
-module.exports = app;
+// Vercel expects the server to listen on the correct port
+module.exports = app; // Export the app to use on Vercel
