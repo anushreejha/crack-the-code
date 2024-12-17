@@ -9,13 +9,13 @@ sendButton.addEventListener('click', () => {
 
     if (message) {
         // Send feedback to the server
-        fetch('http://localhost:3000/feedback', { // Update with your server URL
+        fetch('/feedback', {  // Use relative URL for production (on Vercel)
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ message, name, email, feedbackType }),
-        })
+        })        
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
