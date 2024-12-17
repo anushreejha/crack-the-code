@@ -12,8 +12,12 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Serve static files from the root directory
-app.use(express.static(path.join(__dirname, '../'))); // Serve static files from the root directory
+// Serve static files from the styles and scripts directories
+app.use('/styles', express.static(path.join(__dirname, '../styles'))); // Serve CSS files
+app.use('/scripts', express.static(path.join(__dirname, '../scripts'))); // Serve JS files
+
+// Serve static files from the pages directory
+app.use(express.static(path.join(__dirname, '../pages'))); // Serve HTML files
 
 // MongoDB connection string
 const uri = process.env.MONGODB_URI; // Use the environment variable
@@ -59,9 +63,17 @@ app.post('/feedback', async (req, res) => {
   }
 });
 
-// Add a route for the root URL to serve index.html
+// Serve index.html and other HTML pages
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html')); // Serve the index.html file from the root directory
+  res.sendFile(path.join(__dirname, '../pages/index.html')); // Serve the index.html file
+});
+
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname, '../pages/about.html')); // Serve the about.html file
+});
+
+app.get('/contact', (req, res) => {
+  res.sendFile(path.join(__dirname, '../pages/contact.html')); // Serve the contact.html file
 });
 
 // Start the server
