@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const path = require('path'); // Import path module
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,6 +11,9 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+
+// Serve static files from the root directory
+app.use(express.static(path.join(__dirname, '../'))); // Serve static files from the root directory
 
 // MongoDB connection string
 const uri = process.env.MONGODB_URI; // Use the environment variable
@@ -55,9 +59,9 @@ app.post('/feedback', async (req, res) => {
   }
 });
 
-// Add a route for the root URL
+// Add a route for the root URL to serve index.html
 app.get('/', (req, res) => {
-  res.send('Welcome to the Feedback Collector API!');
+  res.sendFile(path.join(__dirname, '../index.html')); // Serve the index.html file from the root directory
 });
 
 // Start the server
