@@ -1,7 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { MongoClient } = require('mongodb');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,44 +12,57 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB connection string
-const uri = 'mongodb+srv://anushreejha0604:9zN9TgGR1KVG5WyG@cluster0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'; // Replace with your connection string
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const uri = process.env.MONGODB_URI; // Use the environment variable
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
 
 // Connect to MongoDB
-client.connect(err => {
-    if (err) {
-        console.error('Failed to connect to MongoDB:', err);
-        return;
-    }
-    console.log('Connected to MongoDB');
+async function connectToDatabase() {
+  try {
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } catch (error) {
+    console.error('Failed to connect to MongoDB:', error);
+    throw error; // Rethrow the error to handle it in the route
+  }
+}
+
+// Initialize the database connection
+connectToDatabase().catch(console.dir);
+
+// Endpoint to receive feedback
+app.post('/feedback', async (req, res) => {
+  const feedback = req.body;
+
+  try {
     const db = client.db('feedbackDB'); // Replace with your database name
     const feedbackCollection = db.collection('feedback'); // Replace with your collection name
 
-    // Endpoint to receive feedback
-    app.post('/feedback', (req, res) => {
-        const feedback = req.body;
+    // Insert feedback into MongoDB
+    await feedbackCollection.insertOne(feedback);
+    console.log('Feedback saved to MongoDB:', feedback);
+    res.status(200).json({ message: 'Feedback received successfully!' });
+  } catch (err) {
+    console.error('Error saving feedback to MongoDB:', err);
+    res.status(500).json({ message: 'Error saving feedback.' });
+  }
+});
 
-        // Insert feedback into MongoDB
-        feedbackCollection.insertOne(feedback)
-            .then(() => {
-                console.log('Feedback saved to MongoDB:', feedback);
-                res.status(200).json({ message: 'Feedback received successfully!' });
-            })
-            .catch(err => {
-                console.error('Error saving feedback to MongoDB:', err);
-                res.status(500).json({ message: 'Error saving feedback.' });
-            });
-    });
+// Add a route for the root URL
+app.get('/', (req, res) => {
+  res.send('Welcome to the Feedback Collector API!');
+});
 
-    // Add a route for the root URL
-    app.get('/', (req, res) => {
-        res.send('Welcome to the Feedback Collector API!');
-    });
-
-    // Start the server
-    app.listen(PORT, () => {
-        console.log(`Server is running on http://localhost:${PORT}`);
-    });
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
 
 // Export the app for Vercel
