@@ -69,5 +69,4 @@ app.post('/feedback', async (req, res) => {
   }
 });
 
-// Export server as a serverless function for Vercel
 module.exports = app;
