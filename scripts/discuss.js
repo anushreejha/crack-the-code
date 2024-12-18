@@ -1,20 +1,19 @@
+const messageInput = document.getElementById('message-input'); // Get message input
+const nameInput = document.getElementById('name-input'); // Get name input
+const emailInput = document.getElementById('email-input'); // Get email input
+const feedbackDropdown = document.getElementById('feedback-dropdown'); // Get feedback dropdown
+const sendButton = document.getElementById('send-button'); // Get send button
+
 sendButton.addEventListener('click', () => {
-    const message = messageInput.value.trim(); // Trim spaces to avoid empty strings with spaces
-    const name = document.getElementById('name-input').value.trim();
-    const email = document.getElementById('email-input').value.trim();
-    const feedbackType = document.getElementById('feedback-dropdown').value;
+    const message = messageInput.value.trim(); 
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const feedbackType = feedbackDropdown.value;
 
     // Validate inputs
-    if (feedbackType === 'Select Type') {
-        alert('Please select the type of feedback.');
-        return; // Stop further execution
-    }
-    if (!email || !validateEmail(email)) {
-        alert('Please enter a valid email address.');
-        return; // Stop further execution
-    }
-    if (!message) {
-        alert('Please enter a message before sending.');
+    const validationError = validateInputs(email, feedbackType, message);
+    if (validationError) {
+        alert(validationError); // Show the validation error
         return; // Stop further execution
     }
 
@@ -33,14 +32,28 @@ sendButton.addEventListener('click', () => {
 
             // Clear the input fields after sending
             messageInput.value = '';
-            document.getElementById('name-input').value = '';
-            document.getElementById('email-input').value = '';
-            document.getElementById('feedback-dropdown').selectedIndex = 0; // Reset dropdown
+            nameInput.value = '';
+            emailInput.value = '';
+            feedbackDropdown.selectedIndex = 0; // Reset dropdown
         })
         .catch((error) => {
             console.error('Error:', error);
         });
 });
+
+// Validate inputs
+function validateInputs(email, feedbackType, message) {
+    if (feedbackType === '' || feedbackType === 'Select Type') {
+        return 'Please select the type of feedback.'; // Check if feedback type is selected
+    }
+    if (!email || !validateEmail(email)) {
+        return 'Please enter a valid email address.'; // Check if email is valid
+    }
+    if (!message) {
+        return 'Please enter a message before sending.'; // Check if message is provided
+    }
+    return null; // No errors
+}
 
 // Validate email
 function validateEmail(email) {
