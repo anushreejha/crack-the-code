@@ -46,7 +46,7 @@ function validateInputs(email, feedbackType, message) {
     if (feedbackType === '' || feedbackType === 'Select Type') {
         return 'Please select the type of feedback.'; // Check if feedback type is selected
     }
-    if (!email || !validateEmail(email)) {
+    if (email || !validateEmail(email)) {
         return 'Please enter a valid email address.'; // Check if email is valid
     }
     if (!message) {
