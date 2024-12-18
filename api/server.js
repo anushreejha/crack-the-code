@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 // Content Security Policy
 app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", "default-src 'self'; font-src 'self' https://fonts.googleapis.com; style-src 'self' https://fonts.googleapis.com;");
+  res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' https://vercel.live; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.googleapis.com;");
   next();
 });
 
