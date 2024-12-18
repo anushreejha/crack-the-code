@@ -4,30 +4,36 @@ sendButton.addEventListener('click', () => {
     const email = document.getElementById('email-input').value;
     const feedbackType = document.getElementById('feedback-dropdown').value;
 
-    // Email validation check (if an email is entered)
-    if (email && !email.includes('@')) {
-        alert('Please enter a valid email address.');
-        return; // Stop further execution if email is invalid
-    }
-
-    // Feedback type validation check
+    // Check if feedback type is still 'Select Type'
     if (feedbackType === 'Select Type') {
         alert('Please select the type of feedback.');
-        return; // Stop further execution if feedback type is not selected
+        return; // Stop further execution
     }
 
-    if (message) {
-        // Send feedback to the server
-        fetch('/feedback', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ message, name, email, feedbackType }),
-        })
+    // Check if email is entered and valid
+    if (email && !email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return; // Stop further execution
+    }
+
+    // Check if message is empty
+    if (!message) {
+        alert('Please enter a message before sending.');
+        return; // Stop further execution
+    }
+
+    // Send feedback to the server
+    fetch('/feedback', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message, name, email, feedbackType }),
+    })
         .then(response => response.json())
         .then(data => {
-            alert('Thank you for your feedback!'); //Submission alert
+            // Thank you message on submission
+            alert('Thank you for your feedback!');
 
             // Clear the input fields after sending
             messageInput.value = '';
@@ -38,7 +44,4 @@ sendButton.addEventListener('click', () => {
         .catch((error) => {
             console.error('Error:', error);
         });
-    } else {
-        alert('Please enter a message before sending.'); // Alert if message is empty
-    }
 });
