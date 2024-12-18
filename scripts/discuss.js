@@ -4,21 +4,10 @@ sendButton.addEventListener('click', () => {
     const email = document.getElementById('email-input').value.trim();
     const feedbackType = document.getElementById('feedback-dropdown').value;
 
-    // Check if feedback type is still 'Select Type'
-    if (feedbackType === 'Select Type') {
-        alert('Please select the type of feedback.');
-        return; // Stop further execution
-    }
-
-    // Check if email is entered and valid
-    if (!email || !validateEmail(email)) { 
-        alert('Please enter a valid email address.');
-        return; // Stop further execution
-    }
-
-    // Check if message is empty
-    if (!message) {
-        alert('Please enter a message before sending.');
+    // Validate inputs
+    const validationError = validateInputs(email, feedbackType, message);
+    if (validationError) {
+        alert(validationError);
         return; // Stop further execution
     }
 
@@ -45,6 +34,20 @@ sendButton.addEventListener('click', () => {
             console.error('Error:', error);
         });
 });
+
+// Validate inputs
+function validateInputs(email, feedbackType, message) {
+    if (feedbackType === 'Select Type') {
+        return 'Please select the type of feedback.';
+    }
+    if (!email || !validateEmail(email)) {
+        return 'Please enter a valid email address.';
+    }
+    if (!message) {
+        return 'Please enter a message before sending.';
+    }
+    return null; // No errors
+}
 
 // Validate email
 function validateEmail(email) {
