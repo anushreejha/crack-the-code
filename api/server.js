@@ -45,7 +45,6 @@ const client = new MongoClient(uri, {
   serverApi: { version: ServerApiVersion.v1, strict: true, deprecationErrors: true },
 });
 
-// Connect to MongoDB
 async function connectToDatabase() {
   try {
     await client.connect();
@@ -55,13 +54,12 @@ async function connectToDatabase() {
     console.error('Failed to connect to MongoDB:', error);
   }
 }
-connectToDatabase().catch(console.dir);
 
 // Feedback endpoint
 app.post('/feedback', async (req, res) => {
   const feedback = req.body;
   try {
-    const db = client.db('feedbackDB'); // Replace with your database name
+    const db = client.db('feedbackDB');
     const collection = db.collection('feedback');
     await collection.insertOne(feedback);
     res.status(200).json({ message: 'Feedback received successfully!' });
@@ -71,5 +69,5 @@ app.post('/feedback', async (req, res) => {
   }
 });
 
-// Vercel expects the server to listen on the correct port
-module.exports = app; // Export the app to use on Vercel
+// Export server as a serverless function for Vercel
+module.exports = app;
