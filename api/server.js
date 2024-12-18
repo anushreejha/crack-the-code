@@ -12,9 +12,12 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Content Security Policy
+// Updated Content Security Policy
 app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' https://vercel.live; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.googleapis.com;");
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self' https://vercel.live; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; style-src-elem 'self' https://fonts.googleapis.com; script-src-elem 'self' https://vercel.live;"
+  );
   next();
 });
 
@@ -24,6 +27,11 @@ app.use('/scripts', express.static(path.join(__dirname, '../scripts')));
 
 // Routes for HTML pages
 app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../pages/index.html'));
+});
+
+// Explicit route for index.html
+app.get('/index.html', (req, res) => {
   res.sendFile(path.join(__dirname, '../pages/index.html'));
 });
 
@@ -67,6 +75,11 @@ app.post('/feedback', async (req, res) => {
     console.error('Error saving feedback to MongoDB:', err);
     res.status(500).json({ message: 'Error saving feedback.' });
   }
+});
+
+// Fallback route for undefined pages
+app.use((req, res) => {
+  res.status(404).send('Page not found');
 });
 
 module.exports = app;
