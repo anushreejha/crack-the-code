@@ -9,7 +9,7 @@ sendButton.addEventListener('click', () => {
 
     if (message) {
         // Send feedback to the server
-        fetch('/feedback', {  // Use relative URL for production (on Vercel)
+        fetch('/feedback', {  
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ sendButton.addEventListener('click', () => {
         })        
         .then(response => response.json())
         .then(data => {
-            console.log('Success:', data);
+            alert("Thank you for your feedback!");
             // Clear the input fields after sending
             messageInput.value = '';
             document.getElementById('name-input').value = '';
