@@ -1,7 +1,7 @@
 sendButton.addEventListener('click', () => {
-    const message = messageInput.value;
-    const name = document.getElementById('name-input').value;
-    const email = document.getElementById('email-input').value;
+    const message = messageInput.value.trim(); // Trim spaces to avoid empty strings with spaces
+    const name = document.getElementById('name-input').value.trim();
+    const email = document.getElementById('email-input').value.trim();
     const feedbackType = document.getElementById('feedback-dropdown').value;
 
     // Check if feedback type is still 'Select Type'
@@ -11,7 +11,7 @@ sendButton.addEventListener('click', () => {
     }
 
     // Check if email is entered and valid
-    if (email && !email.includes('@')) {
+    if (email && !validateEmail(email)) { 
         alert('Please enter a valid email address.');
         return; // Stop further execution
     }
@@ -45,3 +45,9 @@ sendButton.addEventListener('click', () => {
             console.error('Error:', error);
         });
 });
+
+// Validate email
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+    return emailRegex.test(email);
+}
