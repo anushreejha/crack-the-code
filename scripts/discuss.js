@@ -11,7 +11,7 @@ sendButton.addEventListener('click', () => {
     }
 
     // Check if email is entered and valid
-    if (email && !validateEmail(email)) { 
+    if (!email || !validateEmail(email)) { 
         alert('Please enter a valid email address.');
         return; // Stop further execution
     }
