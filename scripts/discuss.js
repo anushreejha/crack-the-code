@@ -4,6 +4,18 @@ sendButton.addEventListener('click', () => {
     const email = document.getElementById('email-input').value;
     const feedbackType = document.getElementById('feedback-dropdown').value;
 
+    // Email validation check (if an email is entered)
+    if (email && !email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return; // Stop further execution if email is invalid
+    }
+
+    // Feedback type validation check
+    if (feedbackType === 'Select Type') {
+        alert('Please select the type of feedback.');
+        return; // Stop further execution if feedback type is not selected
+    }
+
     if (message) {
         // Send feedback to the server
         fetch('/feedback', {
@@ -15,8 +27,8 @@ sendButton.addEventListener('click', () => {
         })
         .then(response => response.json())
         .then(data => {
-            alert('Thank you for your feedback!');
-            
+            alert('Thank you for your feedback!'); //Submission alert
+
             // Clear the input fields after sending
             messageInput.value = '';
             document.getElementById('name-input').value = '';
