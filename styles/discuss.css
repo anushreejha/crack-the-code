@@ -14,17 +14,44 @@ body {
     padding: 0;
 }
 
-#navbar {
-    background-color: #333;
-    color: white;
-    padding: 15px;
-    text-align: center;
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--primary-purple);
+    color: var(--white);
+    padding: 1rem 2rem;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-#navbar a {
-    color: white;
-    margin: 0 15px;
+
+.navbar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-left: auto;
+}
+
+.nav-links a {
+    color: var(--white);
     text-decoration: none;
+    margin-left: 0;
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
+
+.nav-links a:hover {
+    color: var(--light-pink);
+}
+
 #chat-section {
     margin: 100px;
     background: var(--light-purple);
@@ -37,9 +64,11 @@ body {
     margin-right: auto;
     text-align: center;
 }
+
 #feedback-type {
     margin-bottom: 10px;
 }
+
 #feedback-dropdown {
     width: 80%;
     padding: 10px;
@@ -70,6 +99,7 @@ body {
     margin-bottom: 10px;
     font-size: 1rem;
 }
+
 #send-button {
     padding: 8px 16px;
     border: none;
@@ -79,6 +109,7 @@ body {
     cursor: pointer;
     width: 80%;
 }
+
 #send-button:hover {
     background-color: var(--primary-purple);
 }
@@ -88,18 +119,17 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Add this to the existing CSS in each of your files */
-
+/* User authentication styles */
 .user-auth {
     display: flex;
     align-items: center;
-    margin-left: auto; /* Pushes the user-auth section to the right */
+    margin-left: auto;
 }
 
 #user-name {
-    margin-right: 10px; /* Space between username and button */
+    margin-right: 10px;
     font-weight: bold;
-    color: var(--white); /* Change to match your theme */
+    color: var(--white);
 }
 
 #auth-button {
@@ -114,38 +144,4 @@ h1 {
 
 #auth-button:hover {
     background-color: var(--primary-purple);
-}
-
-/* Ensure the navbar is fixed at the top */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: var(--primary-purple);
-    color: var(--white);
-    padding: 1rem 2rem;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Adjust navbar content */
-.navbar-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-links {
-    display: flex;
-    gap: 1.5rem;
-    margin-left: auto;
-}
-
-.user-auth {
-    display: flex;
-    align-items: center;
-    margin-left: 20px;
 }

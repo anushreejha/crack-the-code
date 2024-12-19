@@ -6,22 +6,24 @@
     --white: #FFFFFF;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
-
 body {
     padding-top: 80px;
-    background-color: var(--white);
+    background-color: var(--light-purple);
+    color: var(--white);
+    font-family: Arial, sans-serif;
+    margin: 0;
 }
 
 .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     background-color: var(--primary-purple);
+    color: var(--white);
     padding: 1rem 2rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-content {
@@ -42,11 +44,13 @@ body {
 .nav-links {
     display: flex;
     gap: 1.5rem;
+    margin-left: auto;
 }
 
 .nav-links a {
     color: var(--white);
     text-decoration: none;
+    margin-left: 0;
     font-weight: 500;
     transition: color 0.3s ease;
 }
@@ -120,13 +124,13 @@ body {
 .user-auth {
     display: flex;
     align-items: center;
-    margin-left: auto; /* Pushes the user-auth section to the right */
+    margin-left: 20px;
 }
 
 #user-name {
-    margin-right: 10px; /* Space between username and button */
+    margin-right: 10px;
     font-weight: bold;
-    color: var(--white); /* Change to match your theme */
+    color: var(--white);
 }
 
 #auth-button {
@@ -141,26 +145,4 @@ body {
 
 #auth-button:hover {
     background-color: var(--primary-purple);
-}
-
-/* Ensure the navbar is fixed at the top */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: var(--primary-purple);
-    color: var(--white);
-    padding: 1rem 2rem;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Adjust navbar content */
-.navbar-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
