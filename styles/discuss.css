@@ -7,11 +7,13 @@
 }
 
 body {
+    padding-top: 80px;
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
 }
+
 #navbar {
     background-color: #333;
     color: white;
@@ -134,4 +136,16 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-left: auto;
+}
+
+.user-auth {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
 }
