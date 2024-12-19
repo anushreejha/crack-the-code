@@ -172,4 +172,53 @@ code {
 .nav-links a:hover {
     color: var(--light-pink);
 }
-  
+
+/* Add this to the existing CSS in each of your files */
+
+.user-auth {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Pushes the user-auth section to the right */
+}
+
+#user-name {
+    margin-right: 10px; /* Space between username and button */
+    font-weight: bold;
+    color: var(--white); /* Change to match your theme */
+}
+
+#auth-button {
+    background-color: var(--pink);
+    color: var(--white);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#auth-button:hover {
+    background-color: var(--primary-purple);
+}
+
+/* Ensure the navbar is fixed at the top */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--primary-purple);
+    color: var(--white);
+    padding: 1rem 2rem;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust navbar content */
+.navbar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
